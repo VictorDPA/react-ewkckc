@@ -17,32 +17,23 @@ class App extends Component {
     });
   };
 
-  handleButton = (newColor) => {
-    const { color } = this.state;
-    const { dispatch } = this.props;
-    this.setState({ color: newColor }, () => {
-      dispatch(colorPicker(color));
-    });
-  };
-
   render() {
-    const { dispatch, newColor, cyan, magenta } = this.props;
-    const { handleChange, handleButton } = this;
-    const { color } = this.state;
+    const { cyan, magenta, newColor, dispatch } = this.props;
+    const { handleChange } = this;
+
     return (
       <div className="container">
         <h1>Selecione a cor</h1>
         <h3>Cor Selecionada</h3>
-        <div className="color-square" style={{ backgroundColor: `${color}` }} />
+        <div
+          className="color-square"
+          style={{ backgroundColor: `${newColor}` }}
+        />
         <p>{newColor}</p>
         <input type="color" onChange={(e) => handleChange(e)} />
         <div className="buttons">
-          <button
-            onClick={() => this.setState({ color: cyan }, () => this.set)}
-          >
-            Ciano
-          </button>
-          <button onClick={() => handleButton(magenta)}>Magenta</button>
+          <button onClick={() => dispatch(colorPicker(cyan))}> Ciano </button>
+          <button onClick={() => dispatch(colorPicker(magenta))}>Magenta</button>
         </div>
       </div>
     );
